@@ -1,0 +1,57 @@
+---
+title: "Assignment1"
+output: pdf_document
+date: "2025-10-02"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+Question: How do sunshine hours influence Airbnb occupancy rates across different US cities from January to August?  
+- Using the provided sunshine hours dataset and the additional Airbnb occupancy data from https://www.listingok.com/en/airbnb-occupancy/united-states/ for the cities Seattle, Phoenix, New York, Chicago, Miami, and Houston, we can explore how sunshine hours influence the Airbnb occupancies.  
+- By joining the two datasets on city and month, each observation contains both the average monthly sunshine hours and the corresponding Airbnb occupancy rate.This allows to investigate the question: “How do monthly sunshine hours influence Airbnb occupancy rates across these cities from January to August?
+```{r}
+library(tidyverse) 
+
+sunshine_data <- read_csv("/Users/sowjanyapadala/Desktop/Coursework/Q4/Data_Visualization/Assignments/sunshine.csv")
+occupancy_data <- read_csv("/Users/sowjanyapadala/Desktop/Coursework/Q4/Data_Visualization/Assignments/AirbnbOccupancyrate.csv")
+head(sunshine_data)
+head(occupancy_data)
+```
+```{r}
+cat("Cities in the sunshine data:", unique(sunshine_data$city), "\n")
+
+# Print unique cities in Airbnb occupancy data
+cat("Cities in the Airbnb Occupancy data:", unique(occupancy_data$city), "\n")
+merged_df <- occupancy_data %>% inner_join(sunshine_data, by=c("city", "month"))
+
+#month levels
+month_levels <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug")
+
+# Convert Month to factor
+merged_df$month <- factor(merged_df$month, levels = month_levels, ordered = TRUE)
+
+#arrange by City and Month
+merged_df <- merged_df %>%
+  arrange(city, month)
+merged_df
+```
+```{r}
+library(ggplot2)
+
+ggplot(merged_df, aes(x = sunshine, y = OccupancyRate)) +
+  geom_point(aes(color = month), size = 3) +          # points colored by month
+  facet_wrap(~city) +                                # separate plot per city
+  labs(title = "How do sunshine hours influence Airbnb occupancy rates across different 
+  US cities from January to August?",
+       x = "Sunshine Hours",
+       y = "Airbnb Occupancy Rate (%)") +
+  theme_minimal()
+
+
+```
+The above faceted scatter plot visualizes the relationship between monthly sunshine hours and Airbnb occupancy rates from January to August across six U.S. cities—Seattle, Phoenix, New York, Chicago, Miami, and Houston. The motivation for choosing faceted scatter plot for this analysis is because it allows us to examine the relationship between sunshine hours and Airbnb occupancy rates from January to August separately for each U.S. city while still maintaining a consistent visual framework for comparison. If we plotted all cities together in a single scatter plot, overlapping data points could obscure meaningful patterns. By faceting that is, creating small multiples for each city we can isolate the local relationship within each geographic context while keeping the same x- and y-scales across all panels. The data layer was constructed by integrating two datasets from the sunshine dataset, the variables city name, month, and average monthly sunshine hours were selected from the Airbnb dataset, the variable average monthly occupancy rate was extracted. These were joined on the variables city and month, producing a unified dataset.
+
+-Along with the data, we need a specification of which variables are mapped to which aesthetics following this the plot maps sunshine hours to the x-position, Airbnb occupancy rate to the y-position, and month to color. The geometric object (geom) is point, which represents each observation individually without aggregation, and the statistical transformation (stat) used is the default, meaning the raw data are displayed without modification.The faceting specification (facet_wrap(~city)) divides the data by city, creating small multiples that isolate local relationships yet share identical scales. 
+
+-These layered design decisions collectively ensure that the plot clearly reveals how the relationship between sunshine hours and occupancy differs across regions. For example, in Seattle and Chicago, we can clearly observe a strong positive association as sunshine hours increase from winter(jan) to summer(August), occupancy rates rise sharply, indicating that there are more booking during sunnier months. In contrast, in Miami, the pattern is quite different the occupancy rate is relatively higher during the winter months compared to the peak summer period. This occurs probably because Miami’s sunshine hours remain consistently high throughout the year, and its winter season attracts visitors escaping colder northern climates.

@@ -1,0 +1,49 @@
+﻿city,month,OccupancyRate
+Seattle,Jan,48.6
+Seattle,Feb,56.3
+Seattle,Mar,54.9
+Seattle,Apr,51.8
+Seattle,May,58.7
+Seattle,Jun,71.2
+Seattle,Jul,73.9
+Seattle,Aug,68.9
+Phoenix,Jan,61.60
+Phoenix,Feb,74.40
+Phoenix,Mar,70.70
+Phoenix,Apr,53.60
+Phoenix,May,53.80
+Phoenix,Jun,51.90
+Phoenix,Jul,55.00
+Phoenix,Aug,49.80
+New York,Jan,52.60
+New York,Feb,60.30
+New York,Mar,67.80
+New York,Apr,71.70
+New York,May,76.40
+New York,Jun,76.90
+New York,Jul,69.40
+New York,Aug,64.50
+Chicago,Jan,45.10
+Chicago,Feb,54.50
+Chicago,Mar,60.50
+Chicago,Apr,60.00
+Chicago,May,69.90
+Chicago,Jun,73.80
+Chicago,Jul,73.60
+Chicago,Aug,66.70
+Houston,Jan,47.10
+Houston,Feb,53.70
+Houston,Mar,59.20
+Houston,Apr,52.00
+Houston,May,54.00
+Houston,Jun,57.10
+Houston,Jul,52.80
+Houston,Aug,50.80
+Miami,Jan,57.20
+Miami,Feb,67.40
+Miami,Mar,64.30
+Miami,Apr,49.20
+Miami,May,53.70
+Miami,Jun,56.40
+Miami,Jul,57.80
+Miami,Aug,55.10
